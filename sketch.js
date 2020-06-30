@@ -1,38 +1,35 @@
-var movingRect,fixedRect
-
-
-
+var fixedRect, movingRect;
+var go1,go2;
 
 function setup() {
-  createCanvas(800,400);
-  
- fixedRect=createSprite(400, 200, 50, 80);
- movingRect=createSprite(600,200,80,50);
+  createCanvas(1200,800);
+  fixedRect = createSprite(400, 100, 50, 80);
+  fixedRect.shapeColor = "green";
+  fixedRect.debug = true;
+  movingRect = createSprite(400, 800,80,30);
+  movingRect.shapeColor = "green";
+  movingRect.debug = true;
 
-  fixedRect.shapeColor="red";
-  movingRect.shapeColor="red";
+  movingRect.velocityY = -5;
+  fixedRect.velocityY = +5;
 
+  go1 = createSprite(800, 100,80,30);
+  go1.shapeColor = "red";
+  go1.debug = true;
+  go1.velocityY = +5;
 
+  go2 = createSprite(800, 800,80,30);
+  go2.shapeColor = "yellow";
+  go2.debug = true;
+  go2.velocityY = -5;
 }
 
 function draw() {
-  background(0);  
+  background(0,0,0);  
 
-  movingRect.x=World.mouseX;
-  movingRect.y=World.mouseY;
-
- if(movingRect.x-fixedRect.x<fixedRect.width/2+movingRect.width/2  
-  && fixedRect.x-movingRect.x<fixedRect.width/2+movingRect.width/2
-  &&  movingRect.y-fixedRect.y<fixedRect.height/2+movingRect.height/2
-  && fixedRect.y-movingRect.y<fixedRect.height/2+movingRect.height/2 ){
-  fixedRect.shapeColor="green";
-  movingRect.shapeColor="green";
- }
-else{
-  fixedRect.shapeColor="red";
-  movingRect.shapeColor="red";
-
+  bounceOff(movingRect,fixedRect);
+  bounceOff(go1,go2);
+    drawSprites();
 }
 
-  drawSprites();
-}
+
